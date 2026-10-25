@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nike Store | Just Do It</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Estilos Generales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #111;
+        }
+
+        /* Barra de Navegación */
+        header {
+            background-color: #111;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            font-style: italic;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #fa541c;
+        }
+
+        .cart-icon {
+            font-size: 20px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background-color: #fa541c;
+            color: white;
+            font-size: 12px;
+            padding: 2px 6px;
+            border-radius: 50%;
+        }
+
+        /* Sección Hero (Banner Principal) */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 25px;
+            max-width: 600px;
+        }
+
+        .btn {
+            background-color: #fff;
+            color: #111;
+            padding: 12px 30px;
+            border: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: background 0.3s, transform 0.2s;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #fa541c;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        /* Catálogo de Productos */
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            background-color: #e2e2e2;
+        }
+
+        .product-info {
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        .product-title {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            font-size: 19px;
+            color: #fa541c;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .btn-buy {
+            background-color: #111;
+            color: white;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .btn-buy:hover {
+            background-color: #fa541c;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #111;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+            }
+            nav ul {
+                display: none;
+            }
+            .hero h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cabecera -->
+    <header>
+        <div class="logo">NIKE</div>
+        <nav>
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#productos">Catálogo</a></li>
+                <li><a href="#">Hombre</a></li>
+                <li><a href="#">Mujer</a></li>
+            </ul>
+        </nav>
+        <div class="cart-icon" onclick="verCarrito()">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span class="cart-count" id="contador">0</span>
+        </div>
+    </header>
+
+    <!-- Sección Hero -->
+    <section class="hero">
+        <h1>Just Do It</h1>
+        <p>Descubre la nueva colección de ropa deportiva diseñada para llevar tu rendimiento y estilo al siguiente nivel.</p>
+        <a href="#productos" class="btn">Comprar Ahora</a>
+    </section>
+
+    <!-- Sección de Productos -->
+    <main class="container" id="productos">
+        <h2 class="section-title">Colección Destacada</h2>
+        
+        <div class="products-grid">
+            <!-- Producto 1 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=600&q=80" alt="Hoodie Nike" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Hoodie Nike Sportswear Club</h3>
+                    <p class="product-price">$240.000 COP</p>
+                    <button class="btn-buy" onclick="agregarAlCarro('Hoodie Nike Sportswear Club')">Añadir al Carrito</button>
+                </div>
+            </div>
+
+            <!-- Producto 2 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=600&q=80" alt="Camiseta Nike" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Camiseta Nike Dri-FIT Pro</h3>
+                    <p class="product-price">$110.000 COP</p>
+                    <button class="btn-buy" onclick="agregarAlCarro('Camiseta Nike Dri-FIT Pro')">Añadir al Carrito</button>
+                </div>
+            </div>
+
+            <!-- Producto 3 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80" alt="Jogger Nike" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Pantalón Jogger Nike Tech Fleece</h3>
+                    <p class="product-price">$290.000 COP</p>
+                    <button class="btn-buy" onclick="agregarAlCarro('Pantalón Jogger Nike Tech Fleece')">Añadir al Carrito</button>
+                </div>
+            </div>
+
+            <!-- Producto 4 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=600&q=80" alt="Chaqueta Nike" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Chaqueta Nike Windrunner</h3>
+                    <p class="product-price">$380.000 COP</p>
+                    <button class="btn-buy" onclick="agregarAlCarro('Chaqueta Nike Windrunner')">Añadir al Carrito</button>
+                </div>
+            </div>
+
+            <!-- Producto 5 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1591195853828-11db59a44f6b?auto=format&fit=crop&w=600&q=80" alt="Pantaloneta Nike" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Pantaloneta Nike Challenger Shorts</h3>
+                    <p class="product-price">$130.000 COP</p>
+                    <button class="btn-buy" onclick="agregarAlCarro('Pantaloneta Nike Challenger Shorts')">Añadir al Carrito</button>
+                </div>
+            </div>
+
+            <!-- Producto 6 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=600&q=80" alt="Gorra Nike" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Gorra Nike Heritage86 Adjustable</h3>
+                    <p class="product-price">$85.000 COP</p>
+                    <button class="btn-buy" onclick="agregarAlCarro('Gorra Nike Heritage86')">Añadir al Carrito</button>
+                </div>
+            </div>
+
+            <!-- Producto 7 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80" alt="Mochila Nike" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Mochila Nike Hayward Backpack</h3>
+                    <p class="product-price">$190.000 COP</p>
+                    <button class="btn-buy" onclick="agregarAlCarro('Mochila Nike Hayward')">Añadir al Carrito</button>
+                </div>
+            </div>
+
+            <!-- Producto 8 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=600&q=80" alt="Saco Nike" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Saco Entrenamiento Nike Pro Training</h3>
+                    <p class="product-price">$210.000 COP</p>
+                    <button class="btn-buy" onclick="agregarAlCarro('Saco Nike Pro Training')">Añadir al Carrito</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Pie de página -->
+    <footer>
+        <p>&copy; 2026 Nike, Inc. Todos los derechos reservados. Creado con fines educativos.</p>
+    </footer>
+
+    <!-- Script de JavaScript interactivo -->
+    <script>
+        let cantidadCarrito = 0;
+
+        function agregarAlCarro(nombreProducto) {
+            cantidadCarrito++;
+            document.getElementById('contador').innerText = cantidadCarrito;
+            alert(`¡"${nombreProducto}" ha sido añadido a tu carrito de compras!`);
+        }
+
+        function verCarrito() {
+            if (cantidadCarrito === 0) {
+                alert("Tu carrito está vacío.");
+            } else {
+                alert(`Tienes ${cantidadCarrito} producto(s) en tu carrito de compras.`);
+            }
+        }
+    </script>
+</body>
+</html>
